@@ -12,7 +12,7 @@
 @media(max-width:1000px){nav a:not(.nav-contact){display:none}.hero-inner{grid-template-columns:1fr}.hero-visual{min-height:520px}.architecture{width:min(520px,75vw)}.expertise-grid{grid-template-columns:repeat(2,1fr)}.about-grid{gap:40px}.project{grid-template-columns:55px 1fr 250px}.timeline{margin-left:45px}}
 @media(max-width:700px){.wrap{width:min(calc(100% - 28px),var(--max))}.header{top:10px;width:calc(100% - 20px);height:58px;border-radius:18px}.brand > span{
   display:block;
-  font-size:10px;
+  font-size:12px;
   letter-spacing:.10em;
   white-space:nowrap;
 }
