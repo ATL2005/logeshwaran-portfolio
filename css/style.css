@@ -17,7 +17,6 @@
   --glass:rgba(10,13,28,.56);
   --max:1240px;
 
-  /* font stacks with real fallbacks (no more serif flash if a font is slow) */
   --f-body:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-head:"Space Grotesk",Manrope,system-ui,sans-serif;
   --f-mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -29,7 +28,7 @@
 
 html{
   scroll-behavior:smooth;
-  scroll-padding-top:96px;               /* anchor links no longer hide under the fixed header */
+  scroll-padding-top:96px;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
@@ -403,7 +402,7 @@ nav a:hover{color:#fff}
 
 
 /* ==========================================================================
-   07  EXPERTISE
+   07  EXPERTISE  (+ "What I work with" ticker — now wraps, never clipped)
    ========================================================================== */
 .expertise-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .skill-card{
@@ -424,10 +423,16 @@ nav a:hover{color:#fff}
 .stack span{font:9px var(--f-mono);padding:6px 8px;border:1px solid rgba(255,255,255,.08);border-radius:7px;color:#8991aa;background:rgba(255,255,255,.02);transition:.2s}
 .card-arrow{position:absolute;bottom:22px;right:24px;color:#69718c}
 
+/* ticker: flex-wrap + no overflow clipping so every tech name is always visible */
 .ticker{
-  margin-top:65px;padding:17px 0;display:flex;gap:28px;justify-content:center;overflow:hidden;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:#737c98;font-size:9px;
+  margin-top:65px;padding:18px 14px;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:10px 24px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  color:#737c98;font-family:var(--f-mono);font-size:10px;line-height:1.5;
+  letter-spacing:.08em;text-align:center;overflow:visible;
 }
+.ticker>*{white-space:nowrap}
 .ticker i{color:var(--violet);font-style:normal}
 
 
@@ -653,13 +658,8 @@ nav a:hover{color:#fff}
   -webkit-mask-image:radial-gradient(circle,#000,transparent 70%);
           mask-image:radial-gradient(circle,#000,transparent 70%);
 }
-.contact-watermark{
-  position:absolute;z-index:0;left:50%;top:50%;
-  font:700 clamp(240px,34vw,620px)/.7 var(--f-head);letter-spacing:-.13em;white-space:nowrap;
-  color:transparent;-webkit-text-stroke:1px rgba(139,92,246,.12);
-  pointer-events:none;-webkit-user-select:none;user-select:none;
-  transform:translate(-50%,-50%);animation:LAReveal 7s ease-in-out infinite;
-}
+/* watermark removed — safety net in case the element is still in the HTML */
+.contact-watermark{display:none!important}
 .contact-inner{position:relative;z-index:2;text-align:center;padding-block:40px}
 .contact-inner>p:first-child{font-size:9px;color:#717995}
 .contact h2{font:600 clamp(62px,9vw,130px)/.82 var(--f-head);letter-spacing:-.09em;margin:25px 0}
@@ -679,7 +679,7 @@ footer i{display:inline-block;width:5px;height:5px;background:var(--green);borde
 
 
 /* ==========================================================================
-   13  KEYFRAMES  (only the ones that are actually used)
+   13  KEYFRAMES
    ========================================================================== */
 @keyframes noise{0%{transform:translate(0)}25%{transform:translate(2%,-1%)}50%{transform:translate(-1%,2%)}75%{transform:translate(1%,1%)}100%{transform:translate(-2%,-1%)}}
 @keyframes load{from{transform:translateX(-100%)}to{transform:translateX(0)}}
@@ -753,20 +753,13 @@ footer i{display:inline-block;width:5px;height:5px;background:var(--green);borde
 @keyframes aiV2Node{0%,100%{transform:scale(.7);opacity:.55}50%{transform:scale(1.5);opacity:1}}
 @keyframes aiV2Beam{0%,100%{opacity:.15}50%{opacity:.85}}
 
-/* contact watermark — transform/opacity only (no animated blur/filter = much cheaper) */
-@keyframes LAReveal{
-  0%,100%{transform:translate(-50%,-50%) scale(.94) rotate(-4deg);opacity:.45}
-  25%,75%{transform:translate(-50%,-50%) scale(1) rotate(-1deg);opacity:.74}
-  50%{transform:translate(-50%,-50%) scale(1.06) rotate(2deg);opacity:1}
-}
-
 
 /* ==========================================================================
    14  HOVER · FOCUS · RESPONSIVE · MOTION
    Order matters: base → hover → wide → tablet → mobile (large → small)
    ========================================================================== */
 
-/* ---------- 14a  Hover effects — real pointer devices only (no sticky hover on phones) ---------- */
+/* ---------- 14a  Hover effects — real pointer devices only ---------- */
 @media (hover:hover){
   .menu:hover{border-color:rgba(34,211,238,.38);background:rgba(139,92,246,.10);box-shadow:0 0 28px rgba(139,92,246,.16);transform:translateY(-2px)}
   .btn:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22)}
@@ -828,7 +821,6 @@ nav a:focus-visible,
 
 /* ---------- 14g  ≤1024px — tablet & below: hamburger nav + stacked layouts ---------- */
 @media (max-width:1024px){
-  /* nav becomes a dropdown (fixes missing links on tablets) */
   .menu{display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid var(--line);border-radius:12px;flex:none}
   .menu i{position:absolute;display:block;width:17px;height:1.5px;margin:0;background:#fff}
   .menu i:nth-child(1){transform:translateY(-6px)}
@@ -851,7 +843,6 @@ nav a:focus-visible,
   .header nav a:not(.nav-contact):hover{background:rgba(139,92,246,.09)}
   .header .nav-contact{text-align:center;margin-top:4px}
 
-  /* layout */
   .section{padding:110px 0}
   .hero-inner{grid-template-columns:1fr}
   .hero-visual{min-height:520px}
@@ -961,6 +952,12 @@ nav a:focus-visible,
   .skill-card{min-height:330px}
   .skill-card h3{margin-top:70px}
 
+  /* ticker — wraps onto 2–3 lines so nothing is cut off */
+  .ticker{
+    margin-top:36px;padding:16px 8px;
+    gap:8px 14px;font-size:10px;letter-spacing:.05em;line-height:1.4;
+  }
+
   /* timeline */
   .timeline{margin-left:12px}
   .experience{grid-template-columns:1fr;gap:10px;padding:0 0 50px 28px}
@@ -1051,7 +1048,6 @@ nav a:focus-visible,
 
   /* contact + footer */
   .contact{min-height:82vh;min-height:82svh}
-  .contact-watermark{left:72%;top:62%;font-size:52vw;-webkit-text-stroke:1px rgba(139,92,246,.09)}
   .contact h2{font-size:62px}
   .contact-actions{flex-wrap:wrap;margin:24px 0}
   .contact-links{font-size:10px}
@@ -1082,6 +1078,8 @@ nav a:focus-visible,
   .ai-core-v2 span{font-size:37px}
   .ai-node{width:5px;height:5px}
 
+  .ticker{gap:7px 11px;font-size:9.5px;letter-spacing:.03em}
+
   .contact h2{font-size:48px;line-height:.95}
   .contact-links{word-break:break-word}
 }
@@ -1108,6 +1106,8 @@ nav a:focus-visible,
   .ai-visual>span{font-size:68px}
   .exp-content h3{font-size:21px}
 
+  .ticker{gap:6px 9px;font-size:9px;padding:14px 6px}
+
   .service-card{padding:20px 17px}
   .process>div{padding:14px;min-height:125px}
   .process strong{font-size:13px}
@@ -1128,7 +1128,7 @@ nav a:focus-visible,
   .contact h2{font-size:43px}
 }
 
-/* ---------- 14l  Reduced motion (one rule instead of five) ---------- */
+/* ---------- 14l  Reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,
