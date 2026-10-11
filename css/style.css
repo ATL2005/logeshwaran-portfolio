@@ -793,7 +793,7 @@ nav a:focus-visible,
 
   .header{top:10px;width:calc(100% - 20px);height:58px;padding:0 10px 0 14px;border-radius:18px}
   .brand{gap:8px}
-  .brand span{font-size:10px;letter-spacing:.1em;line-height:1}
+  .brand span{font-size:11px;letter-spacing:.1em;line-height:1}
 
   .hero{
     padding-bottom:24px;
