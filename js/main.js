@@ -46,7 +46,7 @@
   document.addEventListener('click', e => {
     if (nav?.classList.contains('open') && !e.target.closest('header')) setMenu(false);
   });
-  addEventListener('resize', () => { if (innerWidth > 1024) setMenu(false); });
+  addEventListener('resize', () => { if (innerWidth > 900) setMenu(false); });
 
   /* ---------- Reveal on scroll (stagger by sibling position) ---------- */
   const reveal = new IntersectionObserver(entries => entries.forEach(e => {
