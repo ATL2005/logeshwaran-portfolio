@@ -1193,3 +1193,147 @@ nav a.active:not(.nav-contact)::after{transform:scaleX(1)}
   .hero-visual,.scroll{display:none}
   .contact{min-height:auto;padding:90px 0}
 }
+
+
+/* =====================================================================
+   HERO — Orbital Tech Globe + role typewriter
+   ===================================================================== */
+.orb-visual{
+  position:relative;width:min(540px,44vw);aspect-ratio:1;container-type:inline-size;
+  display:block;isolation:isolate;animation:neuralFloat 7s ease-in-out infinite;
+}
+.orb-visual::before{content:'';position:absolute;inset:6%;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle,rgba(139,92,246,.18),rgba(34,211,238,.05) 45%,transparent 70%);
+  animation:neuralGlow 4s ease-in-out infinite}
+#orb-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab;-webkit-tap-highlight-color:transparent}
+#orb-canvas.grabbing{cursor:grabbing}
+.orb-core{
+  position:absolute;inset:0;margin:auto;width:25%;aspect-ratio:1;border-radius:50%;pointer-events:none;
+  display:grid;place-items:center;align-content:center;
+  background:radial-gradient(circle at 36% 28%,rgba(255,255,255,.17),rgba(16,18,38,.82) 55%,rgba(5,7,17,.94));
+  border:1px solid rgba(255,255,255,.19);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 0 38px rgba(34,211,238,.22),0 0 100px rgba(124,58,237,.34),inset 0 0 36px rgba(255,255,255,.04);
+  animation:orbCore 3.2s ease-in-out infinite;
+}
+.orb-core::before,.orb-core::after{content:'';position:absolute;inset:-9%;border-radius:50%;border:1px solid rgba(34,211,238,.22);animation:neuralHalo 2.8s ease-in-out infinite}
+.orb-core::after{inset:-20%;border-color:rgba(139,92,246,.15);animation-delay:-1.2s}
+.orb-core span{font:700 40px/1 var(--f-head);font-size:13cqw;letter-spacing:-.1em;
+  background:linear-gradient(135deg,#fff 5%,#c4b5fd 42%,#22d3ee 78%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.orb-core small{margin-top:4px;font:8px var(--f-mono);font-size:1.7cqw;letter-spacing:.34em;margin-left:.34em;color:#a6aec5}
+.orb-caption{position:absolute;left:50%;top:0;transform:translateX(-50%);font-size:8px;letter-spacing:.2em;color:#59647f;white-space:nowrap;pointer-events:none}
+@keyframes orbCore{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+.role-line{margin:0 0 14px;font:500 12px/1.6 var(--f-mono);letter-spacing:.04em;color:#67e8f9;min-height:1.6em}
+.role-prompt{color:var(--violet);margin-right:4px}
+.caret{display:inline-block;width:7px;height:1.05em;margin-left:3px;vertical-align:-2px;background:var(--cyan);animation:blink .9s steps(1) infinite}
+
+@media (max-width:1024px){.orb-visual{width:min(520px,76vw)}}
+@media (max-width:700px){
+  .orb-visual{width:min(94vw,380px);animation:neuralFloatMobile 5s ease-in-out infinite}
+  .role-line{font-size:11px}
+  .orb-caption{font-size:7px}
+}
+@media (max-width:390px){.orb-visual{width:min(92vw,340px)}}
+@media (min-width:1600px){.orb-visual{width:min(600px,36vw)}}
+@media (max-height:560px) and (orientation:landscape) and (max-width:1024px){.orb-visual{display:none}}
+
+/* =====================================================================
+   HEADER — animated entrance, sliding pill, glow logo, springy menu
+   ===================================================================== */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+
+.header{
+  animation:headerIn 1s cubic-bezier(.2,.8,.2,1) 1.1s backwards;
+  transition:height .4s cubic-bezier(.2,.8,.2,1),background .4s ease,border-color .4s ease,box-shadow .4s ease;
+}
+@keyframes headerIn{from{opacity:0;transform:translate(-50%,-34px) scale(.97)}to{opacity:1;transform:translateX(-50%)}}
+.header::after{
+  content:'';position:absolute;left:10%;right:10%;bottom:-1px;height:1px;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),var(--pink),transparent);
+  background-size:200% 100%;transition:opacity .4s ease;animation:headerLine 4s linear infinite;
+}
+.header.scrolled::after{opacity:.85}
+.header.scrolled{box-shadow:0 16px 54px rgba(0,0,0,.5),0 0 0 1px rgba(139,92,246,.12)}
+@media (min-width:701px){.header.scrolled{height:58px}}
+@keyframes headerLine{to{background-position:200% 0}}
+
+/* logo badge: rotating gradient ring + hover tilt */
+.brand b{position:relative;transition:transform .45s cubic-bezier(.3,1.6,.5,1),box-shadow .35s}
+.brand b::after{
+  content:'';position:absolute;inset:-4px;border-radius:17px;padding:2px;pointer-events:none;
+  background:conic-gradient(from var(--ang),var(--cyan),var(--violet),var(--pink),var(--cyan));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:ringSpin 4s linear infinite;opacity:.85;
+}
+@keyframes ringSpin{to{--ang:360deg}}
+.brand:hover b{transform:rotate(-8deg) scale(1.08);box-shadow:0 0 38px rgba(34,211,238,.45)}
+.brand>span{
+  background:linear-gradient(100deg,#c8cde0 38%,#fff 50%,#c8cde0 62%);background-size:260% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:brandShine 5.5s ease-in-out infinite 2.4s;
+}
+.brand>span .accent{color:var(--cyan);-webkit-text-fill-color:var(--cyan)}
+@keyframes brandShine{0%,60%{background-position:130% 0}100%{background-position:-30% 0}}
+
+/* nav links: staggered entrance + sliding pill */
+@media (min-width:1025px){nav{position:relative}}
+nav a{position:relative;z-index:1}
+nav a:nth-of-type(1){--i:0}nav a:nth-of-type(2){--i:1}nav a:nth-of-type(3){--i:2}nav a:nth-of-type(4){--i:3}
+nav a:nth-of-type(5){--i:4}nav a:nth-of-type(6){--i:5}nav a:nth-of-type(7){--i:6}nav a:nth-of-type(8){--i:7}
+nav a{animation:navIn .6s cubic-bezier(.2,.8,.2,1) calc(1.35s + var(--i,0) * .07s) backwards}
+@keyframes navIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.nav-pill{
+  position:absolute;left:0;top:50%;height:34px;width:0;border-radius:11px;pointer-events:none;z-index:0;opacity:0;
+  background:linear-gradient(135deg,rgba(139,92,246,.24),rgba(34,211,238,.10));
+  border:1px solid rgba(139,92,246,.32);box-shadow:0 0 26px rgba(139,92,246,.2),inset 0 1px rgba(255,255,255,.06);
+  transform:translate(var(--x,0),-50%);
+  transition:transform .5s cubic-bezier(.2,.9,.25,1.15),width .5s cubic-bezier(.2,.9,.25,1.15),opacity .3s ease;
+}
+.nav-pill.snap{transition:opacity .3s ease}
+nav a:not(.nav-contact)::after{display:none}
+nav a:hover:not(.nav-contact),nav a.active:not(.nav-contact){color:#fff}
+
+/* "Let's talk" — shimmer + glow */
+.nav-contact{position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s,background .3s}
+.nav-contact::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.24) 50%,transparent 70%);
+  transform:translateX(-130%);animation:navShine 4.2s ease-in-out infinite 3s;
+}
+@keyframes navShine{0%,55%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+.nav-contact:hover{transform:translateY(-2px);border-color:rgba(34,211,238,.6);background:rgba(139,92,246,.22);box-shadow:0 0 30px rgba(139,92,246,.34)}
+
+/* hamburger + dropdown (tablet / phone) */
+@media (max-width:1024px){
+  .nav-pill{display:none}
+  .menu{box-shadow:0 0 0 0 rgba(139,92,246,.45);animation:menuPulse 3s ease-in-out infinite 3s}
+  .menu.open{animation:none;border-color:rgba(34,211,238,.5);background:rgba(139,92,246,.2);box-shadow:0 0 28px rgba(139,92,246,.35)}
+  .menu i{transition:transform .5s cubic-bezier(.5,1.6,.4,.8),opacity .25s ease,width .35s ease,background .3s;background:linear-gradient(90deg,#fff,#c4b5fd)}
+  .menu i:nth-child(1){width:19px}.menu i:nth-child(2){width:12px}.menu i:nth-child(3){width:16px}
+  .menu:hover i:nth-child(2),.menu.open i{width:19px}
+  nav a{animation-delay:calc(.08s + var(--i,0) * .055s)}
+  .header nav a{border-left:2px solid transparent;transition:background .25s,padding .3s ease,color .25s,border-color .25s}
+  .header nav a:not(.nav-contact):hover{padding-left:18px}
+  .header nav a.active:not(.nav-contact){border-left-color:var(--cyan)}
+  nav.open{box-shadow:0 22px 60px rgba(0,0,0,.45),0 0 55px rgba(139,92,246,.16),inset 0 1px rgba(255,255,255,.05)}
+  body.menu-open::before{
+    content:'';position:fixed;inset:0;z-index:1100;background:rgba(2,3,10,.58);
+    -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);animation:fadeIn .3s ease both;
+  }
+}
+@keyframes menuPulse{0%,70%,100%{box-shadow:0 0 0 0 rgba(139,92,246,0)}35%{box-shadow:0 0 0 9px rgba(139,92,246,.18)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* =====================================================================
+   CONTACT — WhatsApp button
+   ===================================================================== */
+.btn-wa{gap:10px;padding-left:12px}
+.wa-ico{
+  width:28px;height:28px;padding:5px;flex:none;border-radius:50%;color:#fff;background:#25d366;
+  box-shadow:0 0 0 0 rgba(37,211,102,.55);animation:waPulse 2.4s ease-out infinite;
+}
+.btn-wa .btn-arrow{display:inline-block;transition:transform .3s ease}
+.btn-wa:hover .btn-arrow{transform:translate(3px,-3px)}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%,100%{box-shadow:0 0 0 12px rgba(37,211,102,0)}}
+
