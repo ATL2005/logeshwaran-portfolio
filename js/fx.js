@@ -346,7 +346,7 @@
   if (nav && pill) {
     const normal = [...nav.querySelectorAll('a')].filter(a => !a.classList.contains('nav-contact'));
     const place = a => {
-      if (!a || innerWidth <= 1024) { pill.style.opacity = '0'; return; }
+      if (!a || innerWidth <= 900) { pill.style.opacity = '0'; return; }
       const nr = nav.getBoundingClientRect(), r = a.getBoundingClientRect();
       const wasHidden = pill.style.opacity !== '1';
       if (wasHidden) { pill.classList.add('snap'); }
@@ -368,7 +368,7 @@
     home();
   }
   if (nav) {
-    const sync = () => document.body.classList.toggle('menu-open', nav.classList.contains('open') && innerWidth <= 1024);
+    const sync = () => document.body.classList.toggle('menu-open', nav.classList.contains('open') && innerWidth <= 900);
     new MutationObserver(sync).observe(nav, { attributes: true, attributeFilter: ['class'] });
     addEventListener('resize', sync);
   }
