@@ -25,9 +25,10 @@
 <div class="loader"><div class="loader-mark">LA</div><div class="loader-line"><i></i></div><small>INITIALIZING PORTFOLIO</small></div>
 
 <header class="header">
-  <a class="brand" href="#top"><b>LA</b><span>LOGESHWARAN<span class="accent"> . DEV</span></span></a>
+  <a class="brand" href="#top" aria-label="Logeshwaran A — home"><b>LA</b><span>LOGESHWARAN<span class="accent"> . DEV</span></span></a>
   <button class="menu" aria-label="Toggle navigation" aria-expanded="false"><i></i><i></i><i></i></button>
   <nav>
+    <span class="nav-pill" aria-hidden="true"></span>
     <a href="#about">01 About</a><a href="#expertise">02 Expertise</a><a href="#experience">03 Experience</a>
     <a href="#projects">04 Projects</a><a href="#services">05 Services</a><a href="#education">06 Education</a><a href="#certifications">07 Certifications</a>
     <a href="#contact" class="nav-contact">Let's talk ↗</a>
@@ -44,6 +45,7 @@
       <p class="mono eyebrow">M.Sc. COMPUTER SCIENCE <span>/</span> KARUR, TAMIL NADU</p>
       <h1>BUILDING<br><em>DIGITAL</em><br>PRODUCTS<span>.</span></h1>
       <p class="hero-desc">I build <strong>digital products</strong> that solve real problems.</p>
+      <p class="role-line mono" aria-label="Roles"><span class="role-prompt">&gt;</span> <span id="role-text">Full-Stack Developer</span><i class="caret"></i></p>
       <p class="hero-text">Full-Stack Developer with a practical focus on web applications, AI-assisted systems, cloud technologies and digital experiences.</p>
       <div class="hero-actions">
         <a class="btn primary" href="#projects">Explore my work <span>↗</span></a>
@@ -52,13 +54,10 @@
       <div class="hero-stats"><span><b>01</b> Full-Stack Development</span><span><b>02</b> AI & Machine Learning</span><span><b>03</b> Cloud & Deployment</span> <span><b>04</b> Digital & Visual</span> </div></div>
     <div class="hero-visual">
       <div class="visual-label mono">SYSTEM / LOGESHWARAN_A</div>
-      <div class="neural-visual" aria-hidden="true">
-        <div class="neural-grid"></div>
-        <div class="neural-ring nr1"></div><div class="neural-ring nr2"></div><div class="neural-ring nr3"></div>
-        <span class="neural-line nl1"></span><span class="neural-line nl2"></span><span class="neural-line nl3"></span><span class="neural-line nl4"></span>
-        <i class="neural-node nn1"></i><i class="neural-node nn2"></i><i class="neural-node nn3"></i><i class="neural-node nn4"></i><i class="neural-node nn5"></i><i class="neural-node nn6"></i>
-        <div class="neural-core"><span>LA</span><small>DEV</small><b>FULL-STACK / AI</b></div>
-        <div class="neural-caption mono">DIGITAL SYSTEM / 2026</div>
+      <div class="orb-visual">
+        <canvas id="orb-canvas" aria-hidden="true"></canvas>
+        <div class="orb-core" aria-hidden="true"><span>LA</span><small>DEV</small></div>
+        <div class="orb-caption mono" aria-hidden="true">DRAG · TAP · TILT</div>
       </div>
       <div class="terminal">
         <div><i></i><i></i><i></i><span>~/logeshwaran</span></div>
@@ -216,12 +215,13 @@
   <p class="mono">08 · CONTACT</p>
   <h2>Have an idea?<br><em>Let's build it.</em></h2>
   <p>I'm open to full-stack development opportunities, freelance projects and practical technology collaborations.</p>
-  <div class="contact-actions"><a class="btn primary" href="mailto:logeshdeveloper2005@gmail.com">Start a conversation ↗</a><a class="btn ghost" href="https://www.linkedin.com/in/logeshwaran-arumugam" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div>
-  <div class="contact-links"><a href="mailto:logeshdeveloper2005@gmail.com">logeshdeveloper2005@gmail.com</a><span>·</span><a href="https://www.linkedin.com/in/logeshwaran-arumugam" target="_blank" rel="noopener noreferrer">linkedin.com/in/logeshwaran-arumugam</a></div>
+  <div class="contact-actions"><a class="btn primary btn-wa" href="https://wa.me/919344450720?text=Hi%20Logeshwaran%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noopener noreferrer" aria-label="Start a conversation on WhatsApp"><svg class="wa-ico" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16.04 3C9.4 3 4 8.4 4 15.03c0 2.12.55 4.19 1.6 6.01L4 29l8.12-1.57a12 12 0 0 0 3.92.66h.01C22.7 28.09 28 22.7 28 16.07 28 9.4 22.68 3 16.04 3zm0 22.1c-1.2 0-2.38-.32-3.4-.93l-.24-.15-4.82.93.97-4.7-.16-.25a9.98 9.98 0 0 1-1.54-5.3c0-5.5 4.5-9.98 10.05-9.98 5.5 0 10 4.47 10 9.98 0 5.52-4.5 10.4-9.86 10.4zm5.5-7.5c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.4-1.5-.89-.8-1.5-1.78-1.67-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.68-1.64-.93-2.25-.24-.58-.5-.5-.68-.51h-.58c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.1 3.2 5.08 4.48.7.3 1.26.48 1.7.62.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg><span>Start a conversation</span><span class="btn-arrow">↗</span></a><a class="btn ghost" href="https://www.linkedin.com/in/logeshwaran-arumugam" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div>
+  <div class="contact-links"><a href="https://wa.me/919344450720" target="_blank" rel="noopener noreferrer">WhatsApp +91 93444 50720</a><span>·</span><a href="mailto:logeshdeveloper2005@gmail.com">logeshdeveloper2005@gmail.com</a><span>·</span><a href="https://www.linkedin.com/in/logeshwaran-arumugam" target="_blank" rel="noopener noreferrer">linkedin.com/in/logeshwaran-arumugam</a></div>
 </div>
 </section>
 </main>
 <footer><div class="wrap"><span>© 2026 Logeshwaran A</span><span><i></i> Full-Stack · AI · Cloud · Innovation</span><a href="#top">Back to top ↑</a></div></footer>
 <script src="js/main.js"></script>
+<script src="js/fx.js"></script>
 </body>
 </html>
