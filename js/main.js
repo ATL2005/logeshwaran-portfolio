@@ -3,7 +3,7 @@
   const $$ = (s, p = document) => [...p.querySelectorAll(s)];
   const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+ 
   /* ---------- Loader (with failsafe) ---------- */
   const loader = $('.loader');
   const hideLoader = () => loader?.classList.add('hide');
