@@ -10,7 +10,7 @@
   --green:#5eead4;
   --glass:rgba(10,13,28,.56);
   --max:1240px;
-  --f-body:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif; 
   --f-head:"Space Grotesk",Manrope,system-ui,sans-serif;
   --f-mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
