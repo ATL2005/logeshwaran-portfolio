@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 :root{
   --bg:#03040b;
   --bg2:#070a16;
@@ -956,23 +954,6 @@ nav a:focus-visible,
   .contact-links{font-size:10px}
   footer .wrap{flex-direction:column;align-items:center;text-align:center}
 
-  .hero-text,
-  .about-copy>p:not(.big),
-  .skill-card p,
-  .exp-content p,
-  .project p,
-  .services-intro .services-lead,
-  .service-card p,
-  .process p,
-  .education-main p,
-  .contact-inner>p:not(:first-child){
-    text-align:justify;
-    text-justify:inter-word;
-    -webkit-hyphens:auto;
-    hyphens:auto;
-    overflow-wrap:break-word;
-  }
-  .contact-inner>p:not(:first-child){text-align-last:center}
 }
 
 @media (max-width:480px){
@@ -1055,4 +1036,160 @@ nav a:focus-visible,
   .space-particle,
   .space-streak{display:none}
   .reveal{opacity:1;transform:none}
+}
+
+/* =====================================================================
+   V4.3 — responsive polish, justified text, ERP visual, dynamic states
+   ===================================================================== */
+
+/* ---- Justified, hyphenated body copy on every screen size ---- */
+.hero-text,
+.about-copy>p:not(.big),
+.skill-card p,
+.exp-content p,
+.project p,
+.services-intro .services-lead,
+.service-card p,
+.process p,
+.education-main p{
+  text-align:justify;text-align-last:left;text-justify:inter-word;
+  -webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:6 3 3;
+  overflow-wrap:break-word;word-break:normal;
+}
+.contact-inner>p:not(:first-child){text-align:center;text-wrap:balance}
+
+/* ---- Fluid, more readable body sizes ---- */
+.hero-text{font-size:clamp(13px,.5vw + .62rem,15.5px)}
+.about-copy>p:not(.big){font-size:clamp(14px,.45vw + .7rem,16px)}
+.skill-card p,.service-card p{font-size:clamp(12.5px,.3vw + .66rem,13.5px)}
+.exp-content p{font-size:clamp(13px,.4vw + .68rem,15px)}
+.project p{font-size:clamp(12.5px,.35vw + .66rem,14px)}
+.education-main p{font-size:clamp(12.5px,.3vw + .68rem,13.5px)}
+.section{padding:clamp(80px,11vw,150px) 0}
+
+/* ---- Header / nav states ---- */
+.header.scrolled{background:rgba(4,6,15,.82);border-color:rgba(139,92,246,.22)}
+nav a:not(.nav-contact){position:relative}
+nav a:not(.nav-contact)::after{
+  content:'';position:absolute;left:0;right:0;bottom:-7px;height:1px;
+  background:linear-gradient(90deg,var(--violet),var(--cyan));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+}
+nav a.active:not(.nav-contact){color:#fff}
+nav a.active:not(.nav-contact)::after{transform:scaleX(1)}
+@supports (top:env(safe-area-inset-top)){
+  .header{top:calc(18px + env(safe-area-inset-top))}
+  footer{padding-bottom:calc(25px + env(safe-area-inset-bottom))}
+}
+
+/* ---- Reveal: once shown, hand transitions back to the element ---- */
+.reveal.done{
+  transition:transform .35s ease,border-color .35s ease,background .35s ease,box-shadow .35s ease,opacity .35s ease;
+  transition-delay:0ms!important;
+}
+
+/* ---- Cursor-following glow on cards (desktop only) ---- */
+.project::after,.skill-card::after,.service-card::after{
+  content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;
+  transition:opacity .35s ease;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(139,92,246,.13),transparent 60%);
+}
+@media (hover:hover){
+  .project:hover::after,.skill-card:hover::after,.service-card:hover::after{opacity:1}
+}
+
+/* ---- Pause hero animation when it is off-screen (saves battery/GPU) ---- */
+.hero.paused,
+.hero.paused *,
+.hero.paused::before,
+.hero.paused::after{animation-play-state:paused!important}
+
+/* ---- Newest experience dot pulses ---- */
+.experience:first-child .exp-dot{background:var(--cyan);border-color:var(--cyan);animation:dotPulse 2.2s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,.5)}50%{box-shadow:0 0 0 9px rgba(34,211,238,0)}}
+
+/* ---- ERP project visual ---- */
+.erp-visual{background:radial-gradient(circle at 50% 50%,rgba(34,211,238,.14),transparent 65%),#070a15}
+.erp-badge{position:absolute;z-index:3;right:12px;top:12px;font:700 9px var(--f-mono);letter-spacing:.14em;color:#67e8f9;padding:5px 9px;border:1px solid rgba(34,211,238,.35);border-radius:999px;background:rgba(4,6,15,.7)}
+.erp-dash{
+  position:relative;z-index:1;width:78%;height:72%;display:grid;grid-template-columns:22% minmax(0,1fr);overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);border-radius:12px;background:rgba(10,13,27,.88);
+  box-shadow:20px 25px 60px rgba(0,0,0,.5);
+  transform:perspective(600px) rotateY(-10deg) rotateX(4deg);animation:uiFloat 4s ease-in-out infinite;
+}
+.erp-side{display:flex;flex-direction:column;gap:9px;padding:12px 9px;border-right:1px solid rgba(255,255,255,.07);background:rgba(139,92,246,.06)}
+.erp-side i{height:6px;border-radius:4px;background:rgba(255,255,255,.12)}
+.erp-side i:first-child{background:linear-gradient(90deg,var(--violet),var(--cyan))}
+.erp-main{padding:12px;display:grid;grid-template-rows:auto 1fr;gap:10px;min-width:0}
+.erp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.erp-stats b{height:24px;border-radius:6px;background:linear-gradient(90deg,rgba(139,92,246,.25),rgba(34,211,238,.08));border:1px solid rgba(255,255,255,.06)}
+.erp-bars{display:flex;align-items:flex-end;gap:6px;padding-top:4px;min-height:0}
+.erp-bars i{flex:1;height:var(--h);border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--cyan),rgba(139,92,246,.35));transform-origin:bottom;animation:erpBar 3s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes erpBar{0%,100%{transform:scaleY(.8)}50%{transform:scaleY(1)}}
+
+/* ---- Very large screens ---- */
+@media (min-width:1600px){
+  :root{--max:1400px}
+  .wrap{width:min(calc(100% - 96px),1400px)}
+  .header{width:min(calc(100% - 96px),1560px)}
+  .hero h1{font-size:clamp(100px,6.4vw,146px)}
+  .hero-text{max-width:620px}
+}
+
+/* ---- Tablet portrait / small tablet ---- */
+@media (min-width:701px) and (max-width:1024px){
+  .hero-inner{padding-top:110px}
+  .hero-copy{max-width:680px}
+  .hero-visual{min-height:480px}
+  .skill-card{min-height:360px}
+  .skill-card h3{margin-top:70px}
+  .about-grid{grid-template-columns:1fr}
+  .identity{max-width:560px}
+  .education-main{padding:28px}
+}
+@media (min-width:701px) and (max-width:900px){
+  .project,.project.featured{grid-template-columns:52px minmax(0,1fr);min-height:0}
+  .project-info{padding-right:24px}
+  .project-visual,.project.featured .project-visual{grid-column:2;height:220px;min-height:0;margin:0 20px 20px 0}
+  .project .project-visual.ai-visual-v2{height:240px;min-height:0}
+}
+@media (max-width:820px){
+  .timeline{margin-left:16px}
+  .experience{grid-template-columns:1fr;gap:8px;padding:0 0 55px 30px}
+  .exp-year{padding:0}
+  .cert-grid{grid-template-columns:1fr}
+  .education-main{grid-template-columns:1fr;gap:16px}
+  .education-side{grid-template-columns:1fr}
+}
+
+/* ---- Touch-friendly menu on phones & tablets ---- */
+@media (max-width:1024px){
+  .header nav a{min-height:44px;display:flex;align-items:center}
+  .header .nav-contact{justify-content:center}
+  .header nav a::after{display:none}
+  .header nav a.active:not(.nav-contact){background:rgba(139,92,246,.13);color:#fff}
+  nav{max-height:calc(100svh - 96px);overflow-y:auto;overscroll-behavior:contain}
+}
+
+/* ---- Phones ---- */
+@media (max-width:700px){
+  @supports (top:env(safe-area-inset-top)){.header{top:calc(10px + env(safe-area-inset-top))}}
+  .project-visual,.project.featured .project-visual{overflow:hidden}
+  .erp-dash{width:82%;height:74%}
+  .erp-badge{right:9px;top:9px;font-size:8px}
+  .section-head h2{overflow-wrap:anywhere}
+  .hero-stats span{min-width:0}
+}
+@media (max-width:480px){
+  @supports (top:env(safe-area-inset-top)){.header{top:calc(8px + env(safe-area-inset-top))}}
+  .erp-main{padding:9px;gap:7px}
+  .erp-side{padding:9px 6px;gap:7px}
+}
+
+/* ---- Landscape phones (short viewports) ---- */
+@media (max-height:560px) and (orientation:landscape) and (max-width:1024px){
+  .hero{min-height:auto;padding-bottom:50px}
+  .hero-inner{grid-template-columns:1fr;padding-top:96px}
+  .hero-visual,.scroll{display:none}
+  .contact{min-height:auto;padding:90px 0}
 }
