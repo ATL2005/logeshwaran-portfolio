@@ -10,7 +10,7 @@
 
   /* ---------------------------------------------------------------
      1) ORBITAL TECH GLOBE
-  --------------------------------------------------------------- */
+  --------------------------------------------------------------- */ 
   const canvas = document.getElementById('orb-canvas');
   if (canvas && canvas.getContext) {
     const ctx = canvas.getContext('2d');
