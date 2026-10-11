@@ -5,7 +5,7 @@
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile=window.innerWidth<720;
   const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,1000);
+  const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,1000); 
   camera.position.z=34;
 
   const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
